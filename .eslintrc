@@ -1,0 +1,35 @@
+{
+  "extends": ["prettier"],
+  "plugins": ["prettier"],
+  "rules": {
+    "no-console": "off",
+    "radix": "off",
+    "global-require": "off",
+    "import/no-dynamic-require": "off",
+    "import/prefer-default-export": "off",
+    "import/no-extraneous-dependencies": [
+      "error", {
+        "devDependencies": false,
+        "optionalDependencies": false,
+        "peerDependencies": false,
+        "packageDir": "./"
+      }
+    ],
+    "prettier/prettier": ["error"],
+    "no-underscore-dangle": [2, {
+      "allowAfterThis": true
+    }],
+    "class-methods-use-this": "off",
+    "no-restricted-imports": "off",
+    "no-plusplus": "off",
+    "no-param-reassign": "off",
+    "default-case": "off",
+    "no-return-assign": "off",
+    "no-new": "off",
+    "prefer-destructuring": "off"
+  },
+  "env": {
+    "browser": true,
+    "node": true
+  }
+}
