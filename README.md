@@ -20,6 +20,25 @@ Badger tries to solve this issue.
 - Response code: 200
 - Returns: List of badges
 
+- Response code: 200
+
+```json
+{
+    "Message": "ok",
+    "badges": [
+        "example",
+        "my-test",
+        "my-testx"
+    ]
+}
+```
+
+Example request:
+
+```bash
+curl -X GET http://0.0.0.0:3000/badges
+```
+
 **GET**     /badges/<badgeName>
 
 - : Get a specific badge

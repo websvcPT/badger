@@ -16,6 +16,17 @@ describe('Badges ', function() {
     let authToken = 'APIKEY test';
     let nonExistingAuthToken = 'APIKEY nonExistingAuthToken';
 
+    it('retrieve badges list', function(done) {
+        request(server).get('/badges')
+            .set('Accept', 'application/json')
+            .end(function(err, res) {
+                expect(res.statusCode).to.equal(200);
+                expect(res.body.Message).to.have.string('ok');
+                expect('Content-Type', /json/);
+                done();
+            });
+    });
+
     it('create/update a badge', function(done) {
         request(server).post('/badges/set')
             .send(badgeData)
@@ -75,7 +86,7 @@ describe('Badges ', function() {
     });
 
     it('delete a badge', function(done) {
-        request(server) .delete('/badges/' + badgeName)
+        request(server).delete('/badges/' + badgeName)
             .set('Accept', 'application/json')
             .set('authorization', authToken)
             .end(function(err, res) {
@@ -96,7 +107,7 @@ describe('Badges ', function() {
     });
 
     it('try to delete a badge with bad authentication token', function(done) {
-        request(server) .delete('/badges/' + badgeName)
+        request(server).delete('/badges/' + badgeName)
             .set('authorization', nonExistingAuthToken)
             .end(function(err, res) {
                 expect(res.statusCode).to.equal(403);
@@ -105,7 +116,7 @@ describe('Badges ', function() {
     });
 
     it('try to delete a badge not sending authorization header', function(done) {
-        request(server) .delete('/badges/' + badgeName)
+        request(server).delete('/badges/' + badgeName)
             .end(function(err, res) {
                 expect(res.statusCode).to.equal(401);
                 done();

@@ -1,4 +1,5 @@
 import { writeFileSync, readFileSync, existsSync, unlinkSync } from 'fs';
+import glob from 'glob';
 
 const fss = {};
 
@@ -40,6 +41,10 @@ fss.deleteFile = function(filePath) {
         console.error(err);
         return false;
     }
+};
+
+fss.fileList = function(filePathWithPattern, options = {}) {
+    return glob.sync(filePathWithPattern, options);
 };
 
 module.exports = fss;

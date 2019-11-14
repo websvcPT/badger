@@ -4,15 +4,22 @@ import bas from '../services/badge';
 import fss from '../services/file';
 import auth from '../services/auth';
 import str from '../services/string';
+import path from 'path';
 
 let router = Router();
 
 /* GET badges listing. */
-/*
 router.get('/', function(req, res) {
-    res.send('respond with a resource');
+
+    let badgeList = [];
+    let filePattern = cfg.dataPath + '/*.json';
+    let filesList = fss.fileList(filePattern);
+    filesList.forEach((file) => {
+        badgeList.push(path.basename(path.basename(file).split('.')[0]));
+    });
+    res.setHeader('Content-Type', 'application/json');
+    res.status(200).json({Message: 'ok', badges: badgeList});
 });
-*/
 
 router.get('/:badgeName', function(req, res) {
     let badgeName = str.sanitize(req.params.badgeName);
