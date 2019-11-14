@@ -1,0 +1,28 @@
+name: Node CI
+
+on:
+  push:
+    branches: 
+      - master
+
+jobs:
+  test:
+    
+    runs-on: ubuntu-18.04
+    
+    steps:
+    - name: Setup Node
+      uses: actions/setup-node@v1
+      with:
+        node-version: '10.0'
+    
+    - name: Install Dependencies
+      run: npm install
+
+
+    - name: Run Eslint
+      run: npm run eslint
+
+
+    - name: Run tests
+      run: npm run test
