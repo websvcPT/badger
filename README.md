@@ -1,7 +1,5 @@
 # Badger
 
-![http://0.0.0.0:3000/badges/my-test](http://0.0.0.0:3000/badges/my-test)
-
 Project badges made easy
 
 ShieldsIo make it very simple to add badges to your project docs, but it requires for you to pass arguments to generate
@@ -10,6 +8,14 @@ the badge.
 For instance if you want to create a badge with latest version number and share it, you are unable to.
 
 Badger tries to solve this issue.
+
+Badge use in markdown files:
+
+```
+![http://0.0.0.0:3000/badges/my-test](http://0.0.0.0:3000/badges/my-test)
+
+<img src="http://0.0.0.0:3000/badges/my-test"/>
+```
 
 ## API reference
 
