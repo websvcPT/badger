@@ -2,6 +2,7 @@ import { Router } from 'express';
 const lowerCase = require('lower-case');
 const bas = require('../services/badge');
 const fss = require('../services/file');
+import auth from '../services/auth';
 
 import cfg from '../config/config';
 
@@ -32,11 +33,13 @@ router.get('/:badgeName', function(req, res) {
 });
 
 router.post('/set', function(req, res) {
+    auth.hasAuthValidFields(req, res);
+    auth.isAuthValid(req, res);
     let data = req.body;
 
     let badgeData = bas.buildBadgeData(data);
     if (!badgeData) {
-        res.status(500).json({Message: 'missing required data'});
+        res.status(400).json({Message: 'missing required data'});
         return;
     }
 
@@ -47,7 +50,7 @@ router.post('/set', function(req, res) {
     let fileWriteResult = fss.putFileData(filePath, dataSave);
 
     if (!fileWriteResult){
-        res.status(500).json({Message: 'failed to write file'});
+        res.status(500).json({Message: 'internal error'});
         return;
     }
     res.setHeader('Content-Type', 'application/json');
@@ -55,10 +58,12 @@ router.post('/set', function(req, res) {
 });
 
 router.delete('/:badgeName', function(req, res) {
+    auth.hasAuthValidFields(req, res);
+    auth.isAuthValid(req, res);
     let badgeName = lowerCase(req.params.badgeName);
     let filePath = cfg.dataPath + '/' + badgeName + '.json';
     if (!fss.checkFileExist(filePath)) {
-        res.status(404).send(' ');
+        res.status(404).send();
         return;
     }
     if (!fss.deleteFile(filePath)) {

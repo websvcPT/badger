@@ -15,6 +15,7 @@ cfg.NODE_ENV = typeof process.env.NODE_ENV != 'undefined' ? process.env.NODE_ENV
 if (typeof process.env.API_KEY == 'undefined') {
     throw('Missing API_KEY in configuration');
 }
+cfg.API_KEY = process.env.API_KEY;
 
 cfg.dataPath = path.join(path.dirname(__dirname), 'data');
 

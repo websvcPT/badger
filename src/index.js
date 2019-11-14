@@ -1,7 +1,6 @@
 import express from 'express';
 import path from 'path';
 import logger from 'morgan';
-import bodyParser from 'body-parser';
 import cfg from './config/config';
 
 const debug = require('debug')('server:debug');
@@ -14,7 +13,6 @@ const app = express();
 
 app.use(logger('combined'));
 app.use(express.json());
-//app.use(bodyParser.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(express.static(path.join(__dirname, 'public')));
 
