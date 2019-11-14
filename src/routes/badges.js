@@ -1,10 +1,9 @@
 import { Router } from 'express';
-const lowerCase = require('lower-case');
-const bas = require('../services/badge');
-const fss = require('../services/file');
-import auth from '../services/auth';
-
 import cfg from '../config/config';
+import bas from '../services/badge';
+import fss from '../services/file';
+import auth from '../services/auth';
+import str from '../services/string';
 
 let router = Router();
 
@@ -16,7 +15,7 @@ router.get('/', function(req, res) {
 */
 
 router.get('/:badgeName', function(req, res) {
-    let badgeName = lowerCase(req.params.badgeName);
+    let badgeName = str.sanitize(req.params.badgeName);
     let filePath = cfg.dataPath + '/' + badgeName + '.json';
 
     if (!fss.checkFileExist(filePath)) {
@@ -43,8 +42,7 @@ router.post('/set', function(req, res) {
         return;
     }
 
-    //TODO: Sanitize badgeName
-    badgeData.badgeName = lowerCase(badgeData.badgeName);
+    badgeData.badgeName = str.sanitize(badgeData.badgeName);
     let filePath = cfg.dataPath + '/' + badgeData.badgeName + '.json';
     let dataSave = JSON.stringify(badgeData);
     let fileWriteResult = fss.putFileData(filePath, dataSave);
@@ -54,13 +52,13 @@ router.post('/set', function(req, res) {
         return;
     }
     res.setHeader('Content-Type', 'application/json');
-    res.status(200).json({Message: 'ok'});
+    res.status(200).json({Message: 'ok', badgeName: badgeData.badgeName});
 });
 
 router.delete('/:badgeName', function(req, res) {
     auth.hasAuthValidFields(req, res);
     auth.isAuthValid(req, res);
-    let badgeName = lowerCase(req.params.badgeName);
+    let badgeName = str.sanitize(req.params.badgeName);
     let filePath = cfg.dataPath + '/' + badgeName + '.json';
     if (!fss.checkFileExist(filePath)) {
         res.status(404).send();

@@ -1,6 +1,6 @@
-import {expect} from 'chai';
+import { expect } from 'chai';
 import server from '../src/index';
-import {describe, it } from 'mocha';
+import { describe, it } from 'mocha';
 import request from 'supertest';
 
 describe('Badges ', function() {
