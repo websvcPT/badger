@@ -15,15 +15,17 @@ Badger tries to solve this issue.
 
 **GET**     /badges
 
+- : Get list of existing badges
 - Arguments: none
 - Response code: 200
 - Returns: List of badges
 
 **GET**     /badges/<badgeName>
 
+- : Get a specific badge
 - Arguments: <badgeName>
 - Response code: 200
-- Returns: Badge
+- Returns: Badge SVG
 
 **POST**    /badges/set
 
@@ -40,22 +42,50 @@ Badger tries to solve this issue.
     "style" : <style>,          // Badge style. Def: plastic
     "labelColor" : <labelColor>,// Badge label color (on the left). Def: blue
     "color" : <color>,          // Badge color (on the right). Def: lightgrey
-    "link" : <link>             // URL to follow when clicking bade. Def: null
+    "link" : <link>             // URL to follow when clicking badge. Def: null
 }
 ```
+
 - Response code: 200
-- Returns: Badge definition
 
 ```json
 {
-    "badgeName" : <badgeName>,
-    "label" : <label>,
-    "message" : <message>,
-    "style" : <style>,
-    "labelColor" : <labelColor>,
-    "color" : <color>,
-    "link" : <link>
+    "Message": "ok",
+    "badgeName": <badgeName>
 }
+```
+
+- Response code: 400
+
+```json
+{
+    "Message": "missing required data"
+}
+```
+
+- Response code: 500
+
+```json
+{
+    "Message": "internal error"
+}
+```
+
+Example request:
+
+```bash
+curl -X POST \
+  http://0.0.0.0:3000/badges/set \
+  -H 'Authorization: APIKEY test' \
+  -H 'Content-Type: application/json' \
+  -d '{
+    "badgeName" : "my-test",
+    "label" : "version",
+    "message" : "1.0.0",
+    "style" : "plastic",
+    "labelColor" : "blue",
+    "color" : "lightgrey"
+}'
 ```
 
 ## Badge specs
@@ -86,10 +116,28 @@ see: [https://github.com/badges/shields/blob/master/gh-badges/README.md#colors](
 
 see: [https://github.com/badges/shields/tree/master/gh-badges/templates](https://github.com/badges/shields/tree/master/gh-badges/templates)
 
+## Development
 
-## DEV
+### Using local machine
 
 ```bash
+# Install dependencies
+npm i
+# Start server
 npm run dev
+# Run tests
 npm run test
+# Run Eslint
+npm run eslint
+# Make build
+npm run build
+# Serve build
+npm run serve
+```
+
+### Using Docker-Compose
+
+```bash
+# Start environment
+docker-compose up
 ```
