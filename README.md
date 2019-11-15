@@ -67,7 +67,7 @@ curl -X GET http://0.0.0.0:3000/badges
     "style" : <style>,          // Badge style. Def: plastic
     "labelColor" : <labelColor>,// Badge label color (on the left). Def: blue
     "color" : <color>,          // Badge color (on the right). Def: lightgrey
-    "link" : <link>             // URL to follow when clicking badge. Def: null
+    // TODO: "link" : <link>             // URL to follow when clicking badge. Def: null
 }
 ```
 
